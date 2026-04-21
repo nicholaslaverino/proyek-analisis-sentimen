@@ -1,60 +1,43 @@
-\# Code-Mixed Sentiment Analysis in Indonesian E-Government
+# Code-Mixed Sentiment Analysis in Indonesian E-Government
 
+This repository contains the source code, datasets, and documentation for the research paper: **"Code-Mixed Sentiment Analysis in Indonesian E-Government: A Controlled Benchmark of Monolingual vs Multilingual Transformers"**.
 
+This study evaluates the performance of monolingual (IndoBERT) and multilingual (mBERT) Transformer models in classifying public sentiment within three major Indonesian e-government mobile applications (SATUSEHAT, SIGNAL, and IKD). The primary focus of this research is to address the *code-mixing* phenomenon—the pervasive blending of informal Indonesian (*slang*) with English technical terms—using a *controlled benchmarking* approach.
 
-Repository ini berisi source code dan dataset untuk penelitian: \*\*"Code-Mixed Sentiment Analysis in Indonesian E-Government: A Controlled Benchmark of Monolingual vs Multilingual Transformers"\*\*. 
+## 📂 Repository Structure
 
+The computational pipeline is divided into 5 main stages that should be executed sequentially:
 
+* **`01_Data_Scraping.py`** : Script to extract user reviews from the Google Play Store utilizing the `google-play-scraper` library.
+* **`02_Preprocessing_and_Cleaning.py`** : Handles data cleaning, case folding, and Indonesian slang normalization. Crucially, it is designed to retain *code-mixed* English technical terms (e.g., 'error', 'bug', 'login') to preserve their original socio-technical context.
+* **`03_WordCloud_Exploration.py`** : Generates Word Cloud visualizations to explore lexical features and identify dominant foreign technical terminology across different applications.
+* **`04_Model_Finetuning_IndoBERT_mBERT.ipynb`** : The core experimental Jupyter Notebook for fine-tuning the pre-trained `indobenchmark/indobert-base-p1` and `bert-base-multilingual-cased` models. 
+* **`05_Evaluation_and_Confusion_Matrix.py`** : Script to evaluate model performance using standard metrics (F1-Score, Precision, Recall, Accuracy) and to render high-resolution *Confusion Matrix* visualizations for error analysis.
 
-Penelitian ini mengevaluasi kinerja model Transformer monolingual (IndoBERT) dan multilingual (mBERT) dalam mengklasifikasikan sentimen ulasan publik pada tiga aplikasi layanan digital pemerintah di Indonesia (SATUSEHAT, SIGNAL, dan IKD). Fokus utama penelitian ini adalah menangani fenomena \*code-mixing\* (perpaduan bahasa Indonesia informal dengan istilah teknis bahasa Inggris) menggunakan pendekatan \*controlled benchmarking\*.
+## 📊 Dataset
 
+The datasets used in this study are located in the `dataset/` directory.
 
+* `raw_dataset.csv` : The original, unedited reviews extracted from the Google Play Store (Total: 14,204 reviews).
+* `cleaned_dataset.csv` : The preprocessed dataset, ready for model training and evaluation.
 
-\## 📂 Struktur Repository
+*(Note: The datasets are provided strictly for academic reproducibility. If the files are unavailable directly in this repository due to GitHub's file size limitations, please contact the corresponding author for access).*
 
+## 🚀 How to Run
 
+### Prerequisites
+Ensure you have Python 3.8+ installed. It is highly recommended to use a virtual environment.
 
-Alur kerja (\*pipeline\*) dalam repository ini dibagi menjadi 5 tahapan utama yang dapat dijalankan secara berurutan:
+### Installation & Execution
+1. **Clone this repository:**
+   ```bash
+   git clone https://github.com/nicholaslaverino/proyek-analisis-sentimen.git
+   cd your-repo-name
 
+Install the required dependencies:
+pip install -r requirements.txt
 
+Run the pipeline:
+Execute the scripts sequentially from 01 to 05.
 
-\* \*\*`01\_Data\_Scraping.py`\*\* : Script untuk melakukan ekstraksi ulasan pengguna dari Google Play Store menggunakan library `google-play-scraper`.
-
-\* \*\*`02\_Preprocessing\_and\_Cleaning.py`\*\* : Script untuk membersihkan data, melakukan \*case folding\*, dan menormalisasi bahasa \*slang\* Indonesia tanpa menerjemahkan istilah \*code-mixed\* (seperti 'error', 'bug', 'login') untuk menjaga konteks aslinya.
-
-\* \*\*`03\_WordCloud\_Exploration.py`\*\* : Script untuk menghasilkan visualisasi Word Cloud guna mengidentifikasi kemunculan kata-kata teknis asing yang dominan pada masing-masing aplikasi.
-
-\* \*\*`04\_Model\_Finetuning\_IndoBERT\_mBERT.ipynb`\*\* : Notebook eksperimen utama untuk melakukan \*fine-tuning\* pada model pre-trained `indobenchmark/indobert-base-p1` dan `bert-base-multilingual-cased`.
-
-\* \*\*`05\_Evaluation\_and\_Confusion\_Matrix.py`\*\* : Script untuk mengevaluasi performa model menggunakan metrik F1-Score, Precision, Recall, Accuracy, dan menghasilkan visualisasi \*Confusion Matrix\*.
-
-
-
-\## 📊 Dataset
-
-
-
-Dataset yang digunakan dalam penelitian ini disimpan dalam folder `dataset/` (jika tersedia secara publik).
-
-\* `raw\_dataset.csv` : Hasil ekstraksi asli dari Google Play Store (total 14.204 ulasan).
-
-\* `cleaned\_dataset.csv` : Dataset yang telah diproses dan siap digunakan untuk pelatihan model.
-
-
-
-\*(Catatan: Dataset disediakan untuk keperluan reproduksi akademis. Jika file tidak tersedia karena batasan ukuran GitHub, silakan hubungi penulis untuk akses).\*
-
-
-
-\## 🚀 Cara Menjalankan (How to Run)
-
-
-
-1\. Lakukan \*clone repository\* ini:
-
-&#x20;  ```bash
-
-&#x20;  git clone \[https://github.com/username-kamu/nama-repo-kamu.git](https://github.com/username-kamu/nama-repo-kamu.git)
-
-&#x20;  cd nama-repo-kamu
-
+Note: For stage 04 (Model Fine-Tuning), we strongly recommend executing the notebook in Google Colab or a local environment with GPU (CUDA) acceleration enabled to reduce training time.
